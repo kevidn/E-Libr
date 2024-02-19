@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+        <h1>{{ title }}</h1>
+        <a href="{% url 'laporan_peminjaman' %}" class="btn btn-warning me-2" style="width: auto;"><strong>CETAK LAPORAN</strong></a>
+            <table class="table mt-5">
+                <thead class="thead">
+                    <tr>
+                        <th>Buku</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Status</th>
+                        <th>Aksi - Status</th>
+                        <th>Peminjam</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody">
+                {% for data in data %}
+                    <tr>
+                        <td scope="row">{{ data.buku.judul }}</td>
+                        <td>{{ data.tanggal_peminjaman }}</td>
+                        <td>{{ data.tanggal_pengembalian }} - <a href="{% url 'edit_pinjam' data.id %}" class="btn btn-warning me-2" style="width: auto;"><i class="fa-regular fa-calendar"></i></a></td>
+                        <td>{{ data.status }}</td>
+                        <td>
+                            <a href="{% url 'dipinjam_pinjam' data.id %}" class="btn btn-warning me-2" style="width: auto;"><i class="fa-solid fa-book-open"></i></a>
+                            <a href="{% url 'dikembalikan_pinjam' data.id %}" class="btn btn-success me-2" style="width: auto;"><i class="fa-regular fa-square-check"></i></a>
+                            <a href="{% url 'terlambat_pinjam' data.id %}" class="btn btn-danger me-2" style="width: auto;"><i class="fa-regular fa-calendar-xmark"></i></a>
+                        </td>
+                        <td>{{ data.user.username }}</td>
+                        <td>
+                            <a a href="{% url 'hapus_pinjam' data.id %}" class="btn btn-danger" style="width: 60px;" onclick="return confirm('Apakah anda yakin ingin menghapus data peminjaman buku {{ data.buku.judul }}?')"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

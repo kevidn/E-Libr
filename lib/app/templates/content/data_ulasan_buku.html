@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-10">
+        <h1>{{ title }}</h1>
+        <a href="{% url 'tambah_ulasan' %}" class="btn btn-primary text-muted mt-3"><strong style="color: aqua;">TAMBAH ULASAN</strong></a>
+            <table class="table mt-4">
+                <thead class="thead">
+                    <tr>
+                        <th>Buku</th>
+                        <th>Ulasan</th>
+                        <th>Rating</th>
+                        <th>Pengulas</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody">
+                {% for ulasan in ulasan %}
+                    <tr>
+                        <td scope="row">{{ ulasan.buku.judul }}</td>
+                        <td>{{ ulasan.ulasan }}</td>
+                        <td>{{ ulasan.rating }}</td>
+                        <td>{{ ulasan.user.username }}</td>
+                        <td>
+                            <a href="{% url 'edit_ulasan' ulasan.id %}" class="btn btn-warning me-2" style="width: auto;"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="{% url 'hapus_ulasan' ulasan.id %}" class="btn btn-danger" style="width: 60px;" onclick="return confirm('Apakah anda yakin ingin menghapus ulasan {{ ulasan.buku.judul }}?')"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

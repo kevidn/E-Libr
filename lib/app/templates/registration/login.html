@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+{% if user.is_authenticated %}
+<meta http-equiv="refresh" content="0; url={% url 'index' %}">
+
+{% else %}
+<div class="container-fluid" style="background-color: whitesmoke;">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mt-5">
+            <div class="card text-success">
+                <strong>
+                    <div class="card-header">
+                    Login
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            
+                            <button class="btn btn-success text-muted"><strong style="color: greenyellow;">LOGIN</strong></button>
+                            <br>
+                            
+                            <br>
+                            <div class="text-success">Belum memiliki akun? 
+                                <a href="{% url "signup" %}">Sign Up</a>
+                            </div>
+                        </form>
+                    </div>
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

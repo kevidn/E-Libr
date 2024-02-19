@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        
+        <h1>{{ title }}</h1>
+
+        <a href="{% url 'tambah_koleksi' %}" class="btn btn-primary text-muted mt-3"><strong style="color: aqua;">TAMBAH KOLEKSI</strong></a>
+            
+                <div class="card col-md-3 mt-5">
+                    <div class="card-header">
+                        <div class="card-title">Koleksi Buku <strong>{{ request.user }}</strong></div>
+                    </div>
+
+                    <div class="card-body">
+                    
+                        {% for koleksi in koleksi %}
+                        <div>{{ koleksi.buku.judul }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+    </div>
+</div>
+
+{% endblock content %}

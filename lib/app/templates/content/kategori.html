@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container mt-5">
+    <div class="row">
+        
+        <h1>{{ title }}</h1>
+
+        <a href="{% url "tambah_kategori" %}" class="btn btn-primary text-muted mt-3"><strong style="color: aqua;">TAMBAH KATEGORI</strong></a>
+                {% for kategori in kategori %}
+                <div class="card col-md-3 mt-5">
+                    <div class="card-header">
+                        <div class="card-title">
+                        {{ kategori.nama }}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {{ kategori.keterangan }}
+                    </div>
+                </div>
+                {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

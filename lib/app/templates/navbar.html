@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #4f0385; font-family: 'Playfair Display', serif; font-weight: bold;" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">E-Libr</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {% if request.user.groups.all.0.name == 'administrator' %}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'tambah_buku' %}">Tambah Buku <i class="fa-solid fa-plus"></i></a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kategori_buku' %}">Kategori</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'data_peminjaman' %}">Data Peminjaman</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'koleksi_buku' %}">Koleksi</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'data_ulasan_buku' %}">Ulasan</a>
+        </li>
+
+        {% elif request.user.groups.all.0.name == 'petugas' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'tambah_buku' %}">Tambah Buku <i class="fa-solid fa-plus"></i></a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kategori_buku' %}">Kategori</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'data_peminjaman' %}">Data Peminjaman</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'koleksi_buku' %}">Koleksi</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'data_ulasan_buku' %}">Ulasan</a>
+        </li>
+
+        {% elif request.user.groups.all.0.name == 'peminjam' %}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pinjam_buku' %}">Pinjam <i class="fa-solid fa-book"></i></a>
+        </li>
+
+        {% elif not user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active " aria-current="page" href="{% url "login" %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "signup" %}">Sign Up</a>
+        </li>
+        {% endif %}
+      </ul>
+
+
+      <div class="nav-text" style="color: rgb(232, 220, 255);">
+        Halo, {{ user }}
+      </div>
+
+      {% if user.is_authenticated %}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="nav-item" style="color: rgb(232, 220, 255);">
+        <a href="{% url 'logout' %}" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "dashboard.html" %}
+
+<div class="container-fluid border col-10 offset-2" style="background-color: blueviolet;">
+  <div class="container col-md-10">
+    <div class="row row-cols-2 g-3 p-4">
+      {% for buku in buku %}
+        <div class="col">
+          <div class="card">
+            <div class="row">
+              <div class="col-md-5">
+                {% if buku.cover %}
+                <div class="row">
+                    <img src="{{ buku.cover.url }}" class="img-fluid rounded-start">
+                </div>
+                {% endif %}
+                
+                {% if request.user.groups.all.0.name == 'administrator' %}
+                <div class="row">
+                  <div>
+                        <a href="{% url 'edit_buku' buku.id %}" class="btn btn-warning me-2" style="width: auto;"><i class="fa-regular fa-pen-to-square"></i></a>
+                  </div>
+                  <div>
+                        <a a href="{% url 'hapus_buku' buku.id %}" class="btn btn-danger" style="width: 60px;" onclick="return confirm('Apakah anda yakin ingin menghapus buku {{ buku.judul }}?')"><i class="fa-solid fa-trash"></i></a>
+                  </div>
+                </div>
+                {% endif %}
+
+                {% if request.user.groups.all.0.name == 'petugas' %}
+                <div class="row">
+                  <div>
+                        <a href="{% url 'edit_buku' buku.id %}" class="btn btn-warning me-2" style="width: auto;"><i class="fa-regular fa-pen-to-square"></i></a>
+                  </div>
+                  <div>
+                        <a a href="{% url 'hapus_buku' buku.id %}" class="btn btn-danger" style="width: 60px;" onclick="return confirm('Apakah anda yakin ingin menghapus buku {{ buku.judul }}?')"><i class="fa-solid fa-trash"></i></a>
+                  </div>
+                </div>
+                {% endif %}
+
+              </div>
+              <div class="col-md-7">
+                <div class="card-body">
+                  <h4 class="card-title">{{ buku.judul }} <a href="{% url 'detail_buku' buku.slug %}"><i class="fa-solid fa-circle-info"></i></a></h5>
+                  <p class="card-text"><small class="text-muted">{{ buku.kelompok_buku }}</small></p>
+                  <p class="card-text">Penulis : {{ buku.penulis }}</p>
+                  <p class="card-text">Penerbit : {{ buku.penerbit }}</p>
+                  <p class="card-text">Terbit pada tahun {{ buku.tahun_terbit }}</p>
+                  <p class="card-text"><small class="text-muted">Ditambahkan oleh {{ buku.pendata }}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

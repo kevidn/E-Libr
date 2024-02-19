@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container border" style="background-color: rgb(232, 220, 255);">
+    <div class="row p-5">
+        <div class="mt-4">
+            <h3 style="font-family: 'Playfair Display SC', serif;">{{ title }}</h3>
+            <div class="col-md-10">
+
+                {% for message in messages %}
+                    {% if message %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+
+                <form action="{% url "tambah_ulasan" %}" method="post" class="col-md-7">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <button type="submit" class="btn btn-success text-muted"><strong style="color: greenyellow;">SUBMIT</strong></button>
+                <a href="{% url "data_ulasan_buku" %}" class="btn btn-primary text-muted"><strong style="color: aqua;">KEMBALI</strong></a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock content %}
